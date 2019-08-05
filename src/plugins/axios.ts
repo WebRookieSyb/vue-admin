@@ -1,15 +1,15 @@
 //axios封装参考https://juejin.im/post/5ae432aaf265da0b9c1063c8
-import Vue from "vue"
-import axios from "axios"
-import VueAxios from "vue-axios"
+import Vue from 'vue'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 import qs from 'qs'
-import router from '@/router';
+import router from '@/router/router';
 
 //自定义封装一个axios插件
 
 //默认配置
 const config = {
-    // baseURL: 'study.163.com',
+    // baseURL: API_URL,
     // headers: {},
     // timeout: 60 * 1000, // Timeout
     // withCredentials: true, // Check cross-site Access-Control
@@ -32,7 +32,7 @@ $axios.interceptors.request.use(
         // }
 
         //根据请求方法，序列化传来的参数，根据后端需求是否序列化
-        if (config.method.toLocaleLowerCase() === "post" || config.method.toLocaleLowerCase() === "put" || config.method.toLocaleLowerCase() === "post") {
+        if (config.method.toLocaleLowerCase() === 'post' || config.method.toLocaleLowerCase() === 'put' || config.method.toLocaleLowerCase() === 'delete') {
             config.data = qs.stringify(config.data)
         }
         return config
@@ -73,11 +73,11 @@ $axios.interceptors.response.use(
             data = response.data
         }
         //根据返回的不同code来做不同的处理（和后端约定）
-        switch (data.code) {
-            case "":
-                break;
-            default:
-        }
+        // switch (data.code) {
+        //     case '':
+        //         break;
+        //     default:
+        // }
         //如果不是正确返回的多code，且已经登录，就抛出错误
         // const err = new Error(data.description)
         // err.data = data
@@ -101,7 +101,7 @@ $axios.interceptors.response.use(
                     break
 
                 case 404:
-                    error.message = `请求地址出错: ${err.response.config.url}`
+                    error.message = `请求地址出错: ${error.response.config.url}`
                     break
 
                 case 408:
@@ -142,13 +142,13 @@ $axios.interceptors.response.use(
 )
 
 //请求处理
-$axios(options).then((res) => {
-    resolve(res)
-    return false
-})
-.catch((error) => {
-    reject(error)
-})
+// $axios(options).then((res) => {
+//     resolve(res)
+//     return false
+// })
+// .catch((error) => {
+//     reject(error)
+// })
 
 //封装成插件
 Plugin.install = function(Vue, options) {
@@ -159,7 +159,7 @@ Plugin.install = function(Vue, options) {
             get() {
                 return $axios
             }
-        }
+        } 
     })
 }
 

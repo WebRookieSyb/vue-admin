@@ -1,0 +1,5 @@
+export const SET_TOKEN = 'setToken'
+export const SET_NAME = 'setName'
+export const SET_AVATAR = 'setAvatar'
+export const SET_INTRODUCTION = 'setIntroduction'
+export const SET_ROLES = 'setRoles'
